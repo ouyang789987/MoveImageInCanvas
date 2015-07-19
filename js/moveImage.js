@@ -1,15 +1,10 @@
 window.onload = function () {
 
 
+
     var ctx;
     var canvas;
     var altura;
-    canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
-
-
-
-
     var arrastrar=false;
     var delta = new Object();
     var img = new Image();
@@ -17,18 +12,21 @@ window.onload = function () {
     var mult;
     var ratio;
     var offset;
+
+
+
+
     function inicio(){
+
+        canvas = document.getElementById('canvas');
+        ctx = canvas.getContext('2d');
+
         img.src = 'https://lh5.googleusercontent.com/-jUUrgrtRzAI/AAAAAAAAAAI/AAAAAAAAACs/NiBIYukBmoM/photo.jpg';
         img.onload = function(){
 
 
-            //altura = (img.height+100) / 2;
             canvas.height = img.height / 2;
             canvas.width = img.width;
-
-
-
-
 
             ratio = img.height / img.width;
             console.log("RATIO:" + ratio);
@@ -42,12 +40,10 @@ window.onload = function () {
         };
     }
 
-    inicio();
-
 
     function draw(coorY){
         ctx.clearRect(0,0,X,Y);
-       // ctx.drawImage(img, 0, coorY);
+        // ctx.drawImage(img, 0, coorY);
 
         if (!coorY)coorY = 0;
 
@@ -114,6 +110,11 @@ window.onload = function () {
     canvas.onmouseout = function(){
         arrastrar = false;
     };
+
+
+    inicio();
+
+
 
 
 };
