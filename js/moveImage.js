@@ -3,20 +3,42 @@ window.onload = function () {
 
     var ctx;
     var canvas;
+    var altura;
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
+
+
+
 
     var arrastrar=false;
     var delta = new Object();
     var img = new Image();
     var X=0, Y=0;
-
+    var mult;
+    var ratio;
+    var offset;
     function inicio(){
-        img.src = 'http://1.bp.blogspot.com/_uNR32GxwiMA/TJDGwckZqTI/AAAAAAAAA78/E_d7wbd3xHk/s1600/tecla+cualkiera.jpg';
+        img.src = 'https://lh5.googleusercontent.com/-jUUrgrtRzAI/AAAAAAAAAAI/AAAAAAAAACs/NiBIYukBmoM/photo.jpg';
         img.onload = function(){
+
+
+            //altura = (img.height+100) / 2;
             canvas.height = img.height / 2;
             canvas.width = img.width;
-            ctx.drawImage(img, 0, 0);
+
+
+
+
+
+            ratio = img.height / img.width;
+            console.log("RATIO:" + ratio);
+            mult = canvas.width /  img.width;
+
+            offset = - ( canvas.height - canvas.width * ratio);
+            console.log("OFFSET: "+ canvas.width + "/"+canvas.width * ratio+"=" + offset);
+            altura = canvas.height * ratio;
+
+          draw();
         };
     }
 
@@ -25,14 +47,20 @@ window.onload = function () {
 
     function draw(coorY){
         ctx.clearRect(0,0,X,Y);
-        ctx.drawImage(img, 0, coorY);
+       // ctx.drawImage(img, 0, coorY);
+
+        if (!coorY)coorY = 0;
+
+
+
+        ctx.drawImage(img, 0, coorY,img.width * mult,canvas.width* ratio);
     }
 
     function oMousePos(canvas, evt) {
         var rect = canvas.getBoundingClientRect();
         return {// devuelve un objeto
-            x: Math.round(evt.clientX - rect.left),
-            y: Math.round(evt.clientY - rect.top)
+            //x: Math.round(evt.clientX - rect.left),
+            y: (evt.clientY - rect.top)
         }
     }
 
@@ -41,7 +69,6 @@ window.onload = function () {
         var mousePos = oMousePos(canvas, e);
         draw(Y);
         arrastrar=true;
-        delta.x = X - mousePos.x;
         delta.y = Y - mousePos.y;
     };
 
@@ -49,25 +76,30 @@ window.onload = function () {
 
         var mousePos = oMousePos(canvas, evt);
 
-        console.log("antes del if Y: "+Y+" img.height "+img.height);
 
         if (arrastrar) {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            X = mousePos.x + delta.x;
             Y = mousePos.y + delta.y;
-            console.log("x: "+X);
             console.log("y: "+Y);
-            var altura =  img.height/2;
+            console.log("ALTURA: "+altura);
+            //var altura =  img.height/2;
+
+
+
+            //
             if(Y>0){
                 Y=0;
-                console.log(altura);
-                console.log((-300)<(-250));
-                console.log(Y<(-altura));
-            }else if(Y<(-(img.height/2))){
+
+                //console.log((-300)<(-250));
+                //console.log(Y<(-altura));
+
+            }else if(Y<-(offset)){
                 //Y=-img.height/2;
                 console.log("else");
-                Y=-altura;
+                Y=-(offset);
             }
+            console.log(offset);
+
             draw(Y);
 
 
