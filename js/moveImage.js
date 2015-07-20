@@ -21,7 +21,7 @@ window.onload = function () {
         canvas = document.getElementById('canvas');
         ctx = canvas.getContext('2d');
 
-        img.src = 'https://lh5.googleusercontent.com/-jUUrgrtRzAI/AAAAAAAAAAI/AAAAAAAAACs/NiBIYukBmoM/photo.jpg';
+        img.src = 'http://imagenesbonitas.bosquedefantasias.com/wp-content/uploads/2015/05/imagenes-graciosas-y-chistosas-300x300.jpg';
         img.onload = function(){
 
 
@@ -40,6 +40,7 @@ window.onload = function () {
         };
     }
 
+    inicio();
 
     function draw(coorY){
         ctx.clearRect(0,0,X,Y);
@@ -112,7 +113,7 @@ window.onload = function () {
     };
 
 
-    inicio();
+
 
 
 
